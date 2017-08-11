@@ -11,15 +11,17 @@
 - usually from MODEL to VIEW
 ![anatomy of data binding](https://d2mxuefqeaa7sj.cloudfront.net/s_02DD16E0D25A987BE39D21A370407807CA989675FA82A129E4ECC9EEAD5D2DFC_1501996624722_image.png)
 
+
   - host element → HTML element to be affected by data binding
   - square brackets → one-way data binding
   - target →what the binding do (2 types - directives/property)
   - expression → js code evaluated (the context of the component is available here)
+  
 ## Property binding
 - angular first seek for directive target, if such not found than property binding is applied
 
+
 | **[property]**   | property of Javascript object of DOM |
-| ---------------- | ------------------------------------ |
 | **[attr.name]**  | attribute of HTML element            |
 | **[class.name]** | modifies elements class membership   |
 | **[style.name]** | element style property               |
@@ -36,11 +38,10 @@
 ## Brackets in binding
 - if brackets omitted, the binding is processed but the expression is passed to directive as literal
 
-| [target]=”expression”   | one-way data biding from expression to target                          |
-| ----------------------- | ---------------------------------------------------------------------- |
-| {{expression}}          | string interpolation                                                   |
+| [target]=”expression”   | one-way data biding from expression to target |
+| {{expression}}          | string interpolation                          |
 | (target)=”expression”   | one-way binding from target to destination of expression (e.g. events) |
-| [(target)]=”expression” | two-way binding (banana in the box)                                    |
+| [(target)]=”expression” | two-way binding (banana in the box)|
 
 ## Host element in data binding
 - HTML element could have multiple bindings
@@ -86,8 +87,7 @@
 ## Class binding
  - several ways how to handle class binding
 
- | **[class]="expr"**   | standard binding |
-| ---------------- | ------------------------------------ |
+| **[class]="expr"**   | standard binding |
 | **[class.className]="expr"**  | sets membership of one class|
 | **[ngClass]="expr"** | assigns membership of class based on object |
 
@@ -115,11 +115,11 @@ isPrimary(elem:any):boolean {
 
 ```
 
+
 ## [ngClass]="map" - directive data binding
 - can use string,array,map
 
- | **[ngClass]="map"**   | assigns class membership based on truthy/falsy in object |
-| ---------------- | ------------------------------------ |
+ | **[ngClass]="obj"**   | assigns class membership based on truthy/falsy in object |
 |  **[ngClass]="array"**  | assigns class membership based on strings in array|
 | **[ngClass]="string"** | adds host element to given class/classes (if more -> separate by space) |
 
@@ -136,6 +136,12 @@ getClassMap():any {
 
 
 ```
+
+## Style binding
+
+ | **[style.styleName]="expr"**   | modifies/add value to given style |
+|  **[style.styleName.units]="expr"**  | modifies/add value to given style with units |
+| **[ngStyle]="map"** | defines multiple styles based on property in object |
 
 
 
