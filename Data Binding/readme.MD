@@ -16,11 +16,12 @@
   - square brackets → one-way data binding
   - target →what the binding do (2 types - directives/property)
   - expression → js code evaluated (the context of the component is available here)
-  
+
 ## Property binding
 - angular first seek for directive target, if such not found than property binding is applied
 
-
+| | |
+|--------|---------|
 | **[property]**   | property of Javascript object of DOM |
 | **[attr.name]**  | attribute of HTML element            |
 | **[class.name]** | modifies elements class membership   |
@@ -38,6 +39,8 @@
 ## Brackets in binding
 - if brackets omitted, the binding is processed but the expression is passed to directive as literal
 
+| | |
+|--------|---------|
 | [target]=”expression”   | one-way data biding from expression to target |
 | {{expression}}          | string interpolation                          |
 | (target)=”expression”   | one-way binding from target to destination of expression (e.g. events) |
@@ -79,6 +82,7 @@
 
 - not all attributes of HTML element have equivalent of DOM API (colspan)
 - this cover the attribute binding
+
 ```
     <td [attr.colspan]="model.getCategories().length">
 ```
@@ -87,6 +91,8 @@
 ## Class binding
  - several ways how to handle class binding
 
+| | |
+|--------|---------|
 | **[class]="expr"**   | standard binding |
 | **[class.className]="expr"**  | sets membership of one class|
 | **[ngClass]="expr"** | assigns membership of class based on object |
@@ -95,6 +101,7 @@
 - property binding on class DOM property
 - expression need to build full class string
 - !! replaces whole property class
+
 ```
 buildClasses() :string {
     return "btn" +" "+" btn-defautl";
@@ -105,6 +112,7 @@ buildClasses() :string {
 - assign membership of one class
 - do not remove other classes
 - expression need to be THRUTHY/FALSY ( js expressions -> enlightment )
+
 ```
 
 <button id="primary" [class.btn-primary]="isPrimary($this)">
@@ -119,9 +127,12 @@ isPrimary(elem:any):boolean {
 ## [ngClass]="map" - directive data binding
 - can use string,array,map
 
- | **[ngClass]="obj"**   | assigns class membership based on truthy/falsy in object |
+| | |
+|--------|---------|
+| **[ngClass]="obj"**   | assigns class membership based on truthy/falsy in object |
 |  **[ngClass]="array"**  | assigns class membership based on strings in array|
 | **[ngClass]="string"** | adds host element to given class/classes (if more -> separate by space) |
+
 
 
 ```
@@ -139,7 +150,9 @@ getClassMap():any {
 
 ## Style binding
 
- | **[style.styleName]="expr"**   | modifies/add value to given style |
+| | |
+|--------|---------|
+| **[style.styleName]="expr"**   | modifies/add value to given style |
 |  **[style.styleName.units]="expr"**  | modifies/add value to given style with units |
 | **[ngStyle]="map"** | defines multiple styles based on property in object |
 
