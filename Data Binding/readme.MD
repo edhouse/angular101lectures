@@ -74,7 +74,7 @@
 
 ```
 
-Attribute binding
+## Attribute binding
 
 - not all attributes of HTML element have equivalent of DOM API (colspan)
 - this cover the attribute binding
@@ -83,6 +83,59 @@ Attribute binding
 ```
 
 
-## Classes and Styles
+## Class binding
+ - several ways how to handle class binding
+
+ | **[class]="expr"**   | standard binding |
+| ---------------- | ------------------------------------ |
+| **[class.className]="expr"**  | sets membership of one class|
+| **[ngClass]="expr"** | assigns membership of class based on object |
+
+## [class]="expr" - Standard property binding 
+- property binding on class DOM property
+- expression need to build full class string
+- !! replaces whole property class
+```
+buildClasses() :string {
+    return "btn" +" "+" btn-defautl";
+}
+```
+
+## [class.className]="expr" - One class membership
+- assign membership of one class
+- do not remove other classes
+- expression need to be THRUTHY/FALSY ( js expressions -> enlightment )
+```
+
+<button id="primary" [class.btn-primary]="isPrimary($this)">
+
+isPrimary(elem:any):boolean {
+ return elem.id == "primary";
+}
+
+```
+
+## [ngClass]="map" - directive data binding
+- can use string,array,map
+
+ | **[ngClass]="map"**   | assigns class membership based on truthy/falsy in object |
+| ---------------- | ------------------------------------ |
+|  **[ngClass]="array"**  | assigns class membership based on strings in array|
+| **[ngClass]="string"** | adds host element to given class/classes (if more -> separate by space) |
+
+
+```
+
+getClassMap():any {
+    return {
+        "btn": true,
+        "btn-primary": false,
+        "btn-default": true 
+    };
+}
+
+
+```
+
 
 
