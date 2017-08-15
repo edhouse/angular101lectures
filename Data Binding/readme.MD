@@ -33,8 +33,12 @@
 - expression is a fragment of javascript, that is evaluated to provide data value to property
 - enclosed to double quotes → string literals in single quotes (not always obvious 😃 )
 - be careful, the expression is not checked by TS compiler and not easy to test
-    <button [ngClass]="btn + getClasses()">OK</button>
+- must be idempotent (angular evaluates the expression n-times before binding to template)
+- cannot access the global objects from template (example: Math.round(1.2)) - binding uses compoenent context
 
+```
+    <button [ngClass]="btn + getClasses()">OK</button>
+```
 
 ## Brackets in binding
 - if brackets omitted, the binding is processed but the expression is passed to directive as literal
@@ -49,16 +53,20 @@
 ## Host element in data binding
 - HTML element could have multiple bindings
 - each binding could affect other attribute/aspect of element
+
+```
     <div [attr.id]="getElemId()" [ngClass]="main"></div>
+```
 
 
 ## Property binding in detail
 - HTML elements represented as DOM JavaScript objects
 - the JS objects has properties representing state of HTML
 - property binding jandles these properties
+```
     <input [value]="getOrder()?.orderNumber || 'None'" />
     // "?" guards against null "||" is a coalesce operator
-
+```
 
 ## String interpolation
 - special version of property binding
