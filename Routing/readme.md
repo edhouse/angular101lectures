@@ -26,8 +26,8 @@
     export class AppModule { }
     
     ...
-   
 ```
+
 * Each route in configuration is separate object
 * Routes configuration is registered via `RouterModule.forRoot` method
 * Paths are provided without leading slash
@@ -63,6 +63,7 @@ NavigationError	|An event triggered when navigation fails due to an unexpected e
 ## Routing Module
 * For more advanced use cases and bigger apps its better to create own routing module. 
 * Separation make it cleaner for advanced configuration and it does not pollute app module. 
+
 ```typescript
 ...
 
