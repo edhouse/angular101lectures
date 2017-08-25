@@ -3,7 +3,7 @@
 * Angular Router is optional service so it is not part of the Angular core and can be found in package `@angular/router`.
 * Router service expects that index.html has set base path ```<base href="/">```
 * Routes are configured inside of app.module.ts like this
-```
+```typescript
     ...
     const applicationRoutes: Routes = [
         {path: 'dashboard', component: 'DashboardComponent', data: {title: 'Dashboard'}},
@@ -37,19 +37,19 @@ transaction
 * Each route object can have declared also static read-only data such as title of page
 * Target page is injected (rendered) to page via `<router-outlet></router-outlet>` which should be placed inside `app.html`
 * Angular Router provides attribute directive `routerLink` to dynamically create urls for navigation (`app.html`)
-```
+```html
 ...
- <nav>
+<nav>
     <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
     <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
-  </nav>
-  <router-outlet></router-outlet>
-  ..
+</nav>
+<router-outlet></router-outlet>
+  ...
 ```
 * Attribute directive `routerLinkActive` adds active CSS class to activated view in navigation
 
 
-##Router Events
+## Router Events
 Router Event |	Description |
 -------------| -------------
 NavigationStart	| An event triggered when navigation starts.
@@ -60,10 +60,10 @@ NavigationEnd | An event triggered when navigation ends successfully.
 NavigationCancel | An event triggered when navigation is canceled. This is due to a Route Guard returning false during navigation.
 NavigationError	|An event triggered when navigation fails due to an unexpected error.
 
-##Routing Module
+## Routing Module
 * For more advanced use cases and bigger apps its better to create own routing module. 
 * Separation make it cleaner for advanced configuration and it does not pollute app module. 
-```
+```typescript
 ...
 
 const appRoutes: Routes = [
