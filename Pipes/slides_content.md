@@ -43,7 +43,7 @@ Concatenation of multiple pipes (depends on order):
 |percent|formats number as percentage|{{'12.5' &#124; percent: '.2'}}|12.50%|
 |currency|formats currency|{{12.5 &#124; currency:'EUR':true:'.3'}}| €12.500|
 |date|formats date|{{someDate &#124; date:'dd-MM-yyyy'}}|15-08-2017|
-|async|allow to display asynchronously fetch data |      |                |
+|async| waits until promise is completed and than shows data |      |                |
 
 ## Custom Pipes
 - Custom pipe can be created as implementation of PipeTransform interface
@@ -66,5 +66,9 @@ Usage:
     <span>{{true | yesno }}</span>
     <!-- Yes -->
 ```
+## Pure pipes
+* By default pipes does not watch for changes in underlying data (async is exception)
+* This behavior can be overriden in via `@Pipe` decorator argument `pure`, however could lead to performance issues
+
 ## References:
 * [Pipes API documentation](https://angular.io/api?query=pipe)
