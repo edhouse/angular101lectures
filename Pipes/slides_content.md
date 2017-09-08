@@ -68,7 +68,7 @@ Usage:
 ```
 ## Pure pipes
 * By default pipes does not watch for changes in underlying data (async is exception)
-* This behavior can be overriden in via `@Pipe` decorator argument `pure`, however could lead to performance issues
+* This behavior can be overridden in via `@Pipe` decorator argument `pure`, however could lead to performance issues
 
 ## References:
 * [Pipes API documentation](https://angular.io/api?query=pipe)
