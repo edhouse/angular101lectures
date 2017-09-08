@@ -29,13 +29,13 @@ Usage in code (used pipe must be added to providers in module or component):
 Concatenation of multiple pipes (depends on order):
 
 ```html
-    <span>{{Edhouse | slice:3:5 | uppercase}}</span>
+    <span>{{'Edhouse' | slice:3:5 | uppercase}}</span>
 ```  
  
 ## Other useful built-in Pipes
 | Pipe | Description |Sample Usage | Sample Output |
 |------|-----------|---------------|----------------|
-|slice|substring from value| {{'Edhouse' &#124; slice:3:5}}|  ou |
+|slice|substring from value|{{'Edhouse' &#124; slice:3:5}}|  ou |
 |uppercase|upper case from value|{{'Edhouse' &#124; uppercase}}|EDHOUSE |
 |lowercase|lower case from value|{{'Edhouse' &#124; lowercase}}|edhouse|
 |titlecase|title case from value|{{'edhouse' &#124; titlecase}}|Edhouse|
@@ -47,7 +47,7 @@ Concatenation of multiple pipes (depends on order):
 
 ## Custom Pipes
 - Custom pipe can be created as implementation of PipeTransform interface
-- Must be declared in Module
+- Must be declared in Module as provider
 
 ```typescript
     import { Pipe, PipeTransform } from '@angular/core';
