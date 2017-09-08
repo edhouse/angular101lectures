@@ -11,7 +11,7 @@
 - object that describes the event
 - all events have common properties:
   - target - element that triggered the event
-  - timeStamp - 
+  - timeStamp - the time when event happened
   - type - string with type name
 
 
