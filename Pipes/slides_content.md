@@ -47,7 +47,7 @@ Concatenation of multiple pipes (depends on order):
 
 ## Custom Pipes
 - Custom pipe can be created as implementation of PipeTransform interface
-- Must be declared in Module as provider
+- Must be declared in Module in declarations array
 
 ```typescript
     import { Pipe, PipeTransform } from '@angular/core';
