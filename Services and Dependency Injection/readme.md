@@ -5,8 +5,6 @@
 - Dependency Injection provides services, components, etc.
 - Angular ships with its own DI framework as standalone module
 
----
-
 ## Services
 
 - Typically a class with a narrow, well-defined purpose
@@ -24,8 +22,6 @@ export class Logger {
 }
 ```
 
----
-
 ## Dependency Injection
 
 - Wired into Angular framework and used everywhere
@@ -35,8 +31,6 @@ export class Logger {
 - *Provider* is a recipe for creating service
 
 ![js-ecosystem](angular-di.svg)
-
----
 
 ### Using DI
 
@@ -52,16 +46,12 @@ class UserMessagingLogger extends Logger {
 }
 ```
 
----
-
 #### @Injectable()
 
 - Marks a class available to an *injector*
 - Required only when component/service specifies dependency
 - Recommended to always add @Injectable() to services
 - Supertype of @Component(), @Directive() and @Pipe()
-
----
 
 ### Testing with DI
 
@@ -77,8 +67,6 @@ it('should log message with user name', () => {
   expect(logger.logs).toEqual(expectedLogs);
 });
 ```
-
----
 
 ## Injector
 
@@ -96,8 +84,6 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 - Dependencies are singleton within the scope of injector
 - Single service instance is shared among Component and its children
-
----
 
 ### Using injector explicitly
 
@@ -125,69 +111,341 @@ export class InjectorComponent implements OnInit {
 }
 ```
 
----
+## Provider
 
-## Providers
+- Provides concrete, runtime version of dependency value
+- Used by injector to create new service
+- Can be registered in modules and components
 
-desc
-registration in modules, components
-alternatives
-aliases
-value
-factory
+### Registering in module
 
----
+```typescript
+@NgModule({
+  imports: [
+    BrowserModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  providers: [
+    Logger
+  ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+```
 
-## Tokens
+### Registering in component
 
----
+```typescript
+@Component({
+  selector: 'car',
+  providers: [CarService],
+  template: `
+  <h2>Car</h2>
+  <engine></engine>
+  <tires></tires>
+  `
+})
+export class HeroesComponent { }
+```
 
-## Optional dependencies
+## Provider object literal
 
----
+Simplified `providers` array:
 
-### Hierarchical Injectors
+```typescript
+providers: [Logger]
+```
 
-tree
-bubbling
-re-providing
+It is shorthand for provider object literal with two properties:
 
-isolation
-multiple
-specialized
+```typescript
+providers: [{ provide: Logger, useClass: Logger }]
+```
 
----
+- *provide* is *token* for locating and registering dependency value
+- *useClass* is *definition* object that specifies how to create instance of service
 
-## @Host
+### Token
 
----
+- Key for internal *token-provider* map of injector
+- In most cases is class type used as key
+- For non-class dependencies exists *InjectionToken*
+- Interface cannot be used as it disappears after compilation to pure JavaScript
+- Injection of *InjectionToken* requires *@Inject()* decorator
 
-## DOM
+#### Example of InjectionToken usage
 
----
+```typescript
+export interface AppConfig {
+  apiEndpoint: string;
+  title: string;
+}
 
-## Class-interface
+export const DI_CONFIG: AppConfig = {
+  apiEndpoint: 'api.example.com',
+  title: 'Dependency Injection'
+};
+```
 
----
+```typescript
+// FAIL! Can't use interface as provider token
+[{ provide: AppConfig, useValue: DI_CONFIG })]
+```
+
+```typescript
+// FAIL! Can't inject using interface as parameter type
+constructor(private config: AppConfig){ }
+```
+
+#### Example of InjectionToken usage
+
+```typescript
+import { InjectionToken } from '@angular/core';
+
+export const APP_CONFIG
+        = new InjectionToken<AppConfig>('app.config');
+```
+
+```typescript
+providers: [{ provide: APP_CONFIG, useValue: DI_CONFIG }]
+```
+
+```typescript
+constructor(@Inject(APP_CONFIG) config: AppConfig) {
+  this.title = config.title;
+}
+```
+
+### Class-interface
+
+- Can be used as a token
+- Actual implementation doesn't have to implement it but it is recommended
+- Usually used as a *narrowing* interface, members of actual implementation are invisible
+- It should not have any implementation to minimize memory cost
+
+```typescript
+export abstract class MinimalLogger {
+  logs: string[];
+  logInfo: (msg: string) => void;
+}
+```
+
+### Provider definitions
+
+- Class
+- Alternative class
+- Alias - use existing service
+- Value - primitive type, object, function, etc.
+- Factory - function
+
+```typescript
+providers: [
+  Engine, // { provide: Engine, useClass: Engine }
+  { provide: Logger, useClass: UserMessagingLogger },
+  { provide: MinimalLogger, useExisting: Logger },
+  { provide: TITLE, useValue: 'Dependency Injection' },
+  { provide: Car, useFactory: carFactory, deps: [Engine] }
+]
+```
+
+```typescript
+export const carFactory = (engine: Engine) => {
+    return new Car(engine);
+}
+```
+
+## Hierarchical Injectors
+
+- Angular application is a tree of components
+- Each component has its own injector
+- Injector bubbling - from self to parent until found or error
+- Re-providing services - first provider encountered wins
+
+![js-ecosystem](injector-tree.svg)
+
+### Limit service scope (isolation)
+
+- Recommendation is to register providers directly to components which use it
+- Reducing risk of using services for different purpose that was designed
+- Example is admin section with api service for maintaining secured area
+
+### Multiple service instances (sandboxing)
+
+- Allows to handle work on several tasks at the same time
+- Services are singletons in injector scope
+- Components would override one state without sandboxing
+
+### Specialized providers
+
+![js-ecosystem](nested-components.svg)
+
+ComponentA providers: `[CarService, EngineService, TiresService]`
+ComponentB providers: `[CarService2, EngineService2]`
+ComponentC providers: `[CarService3]`
+
+Resolved dependencies of ComponentC:
+
+![js-ecosystem](specialized-services.svg)
+
+## Qualifying dependency lookup
+
+- `@Optional()` decorator sets injection parameter to null if not found
+- `@Host()` decorator stops upward search at the *host* component
+
+```typescript
+@Component({/* Omitted properties */})
+export class CarComponent {
+ 
+  hasTires = false;
+ 
+  constructor(
+      @Host()     // limit search for tires
+      @Optional() // ok if tires don't exist
+      private tiresService: TiresService
+  ) {
+    if (tiresService) {
+      this.hasTires = true;
+    }
+  }
+}
+```
+
+## Inject DOM element
+
+```typescript
+import { Directive, ElementRef, HostListener }
+        from '@angular/core';
+ 
+@Directive({ selector: '[myHighlight]' })
+export class HighlightDirective {
+ 
+  private el: HTMLElement;
+ 
+  constructor(el: ElementRef) {
+    this.el = el.nativeElement;
+  }
+ 
+  @HostListener('mouseenter') onMouseEnter() {
+    this.el.style.backgroundColor = 'yellow';
+  }
+ 
+  @HostListener('mouseleave') onMouseLeave() {
+    this.el.style.backgroundColor = null;
+  }
+}
+```
 
 ## Derived classes injection
 
----
+- Dependencies must be re-provided and re-injected
 
-## Injection parent component
+```typescript
+@Component({
+  /* Omitted properties */
+  providers: [EngineService]
+})
+export class CarComponent {
+  constructor(private engineService: EngineService) { }
+}
+```
 
-by class
-by base class cannot
-by class-interface
+```typescript
+@Component({
+  /* Omitted properties */
+  providers: [EngineService]
+})
+export class RacingCarComponent extends CarComponent {
+  constructor(engineService: EngineService) {
+    super(engineService);
+  }
+}
+```
 
-@SkipSelf
+## Inject parent component
 
----
+- Parent can be found by:
+  - Its class
+  - Class-interface
+- Parent CANNOT be found:
+  - By base class (extends)
 
-## Provider helpers
+### Examples of parent injection
 
----
+In child component if parent is of known type:
+
+```typescript
+export class ChildComponent {
+  constructor( private parent: ParentComponent ) { }
+}
+```
+
+### Examples of parent injection by class-interface
+
+In parent component:
+
+```typescript
+providers: [{
+  provide: Parent,
+  useExisting: forwardRef(() => ParentComponent)
+}]
+```
+
+In child component:
+
+```typescript
+export class ChildComponent {
+  constructor( private parent: Parent ) { }
+}
+```
+
+### Examples of parent injection
+
+In child component which is also parent:
+
+```typescript
+@Component({
+  /* Omitted properties */
+  providers: [{
+    provide: Parent,
+    useExisting: forwardRef(() => ChildAndParentComponent)
+  }]
+})
+export class ChildAndParentComponent {
+  constructor( @SkipSelf() private parent: Parent ) { }
+}
+```
 
 ## Circular dependencies
 
-forwardRef
+- Order of declaration matters in TypeScript
+- It is impossible to refer to a class until it has been defined
+- Resolved with *forwardRef()* which creates indirect reference that can be resolved later
+
+## Provider helpers
+
+- Removes code duplication
+
+```typescript
+providers: [{
+  provide: Parent,
+  useExisting: forwardRef(() => ParentComponent)
+}]
+```
+
+With helper:
+
+```typescript
+const provideParent =
+  (component: any) => {
+    return {
+        provide: Parent,
+        useExisting: forwardRef(() => component)
+    };
+  };
+```
+
+```typescript
+providers:  [ provideParent(ParentComponent) ]
+```
