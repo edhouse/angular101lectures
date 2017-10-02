@@ -1,0 +1,20 @@
+
+form input.ng-touched {
+    border: 1px solid blue;
+}
+
+form input.ng-untouched {
+    border: 1px solid green;
+}
+
+form input.ng-pristine {
+    border: 1px solid orange;
+}
+
+form input.ng-dirty {
+    border: 1px solid blueviolet;
+}
+
+form input.ng-invalid {
+    border: 1px solid red;
+}

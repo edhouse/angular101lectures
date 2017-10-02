@@ -1,0 +1,19 @@
+<!-- Export the ngForm directive to 'form' template property -->
+<div>
+    With use of refetence to ngForm directive in #form, the form could be accessed.
+</div>
+<form novalidate #form="ngForm" (ngSubmit)="submit(form)" >
+    <div>
+        <span *ngFor="let err of getFormValidationMessages(form)">
+            {{err}}
+        </span>
+    </div>
+    <label for="email">Email:</label><input type="text" name="email" aria-describedby="emailHelp" [(ngModel)]="model.email"><br/>
+    <label for="email">Name:</label><input type="text" name="name" aria-describedby="emailHelp" [(ngModel)]="model.name"><br/>
+    <label for="email">Surname:</label><input type="text" name="surname" [(ngModel)]="model.surname" minlength="5" pattern="[0-9]{5,}"><br/>
+    <!-- Custom validtor directive -->
+    <label for="password">Password:</label><input type="text" name="password" [(ngModel)]="model.password" equal="passwordTest"><br/>
+    <label for="password">Password Again:</label><input type="text" name="passwordTest" [(ngModel)]="passwordTest" equal="password"><br/>
+    
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+</form>
