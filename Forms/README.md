@@ -61,8 +61,12 @@ ${PROJECT_FOLDER}/src/app/app.module.ts
 ## Display validation messages
 - create template reference variable - #variableName (means exportAs - this way you can export)
 - assign ngModel to this variable = validation object
+
+```
     <input type="Text" [(ngModel)]="product.color" #color="ngModel" required pattern="[a-Z]{1,}"/> 
+```
 - for the message render use ngIf directive
+```
     <ul *ngIf="color.dirty && color.invalid">
       <li *ngIf="color.errors.required">
          The field is required.
@@ -71,9 +75,13 @@ ${PROJECT_FOLDER}/src/app/app.module.ts
          Only letters are allowed.
       </li>
     </ul>
+```
 - errors property created only if there is validation rules violation
+```
     <span *ngIf="color.errors?.required" >This field is required.</span>
+```
 - validation messages/object could be processed in template function
+
 ## Validation object properties
 
 | path      | name of the element                                                          |
