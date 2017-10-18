@@ -1,0 +1,11 @@
+<div>
+    This refers to very simple form with validation classes styled to be visible.
+</div>
+<form novalidate (ngSubmit)="submit(model)">
+    <label for="name">First name: </label>
+    <input type="text" name="name" aria-describedby="emailHelp" [(ngModel)]="model.name"><br/>
+    <label for="name">Second name: </label>
+    <!-- Special construct to enable validation of input -->
+    <input type="text" name="surname" [(ngModel)]="model.surname" #surname="ngModel" minlength="5" pattern="[0-9]{5,}"><br/>
+    <button type="submit" class="btn btn-primary" [disabled]="surname.invalid">Submit</button>
+</form>

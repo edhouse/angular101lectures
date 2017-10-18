@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<label>Basic&nbsp;</label><input type="radio" name="formgroup" 
+(change)="onRadio('basic')">
+<label>Simple&nbsp;</label><input type="radio" name="formgroup" 
+(change)="onRadio('simple')">
+<label>Model based&nbsp;</label><input type="radio" name="formgroup" 
+(change)="onRadio('model')">
+<br/>
+<br/>
+<h1>{{'Chosen form: '+ chosen}}</h1>
+
+<div [ngSwitch]="chosen">
+    <app-basicform *ngSwitchCase="'basic'"></app-basicform>
+    <app-simpleform *ngSwitchCase="'simple'"></app-simpleform>
+    <app-model-based-form *ngSwitchCase="'model'"></app-model-based-form>
+</div>
