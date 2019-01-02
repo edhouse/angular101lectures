@@ -3,17 +3,17 @@
 * Angular Router is optional service so it is not part of the Angular core and can be found in package `@angular/router`.
 * Implementation is extremely robust, there is book just about Angular Router
 * Router service expects that `index.html` has set base path ```<base href="/">```
-* Routes are configured inside of `app.module.ts` like this
+* Routes can be configured inside of `app.module.ts` like this
 ```typescript
    //imports omitted
     const ROUTES: Routes = [
-        {path: 'dashboard', component: 'DashboardComponent', data: {title: 'Dashboard'}},
-        {path: 'transactions', component: 'TransactionsComponent', data : {title: 'Transactions'}},
-        {path: 'transactions/:id', component: 'TransactionDetailComponent', data : {title: 'Transaction Detail'}},
+        { path: 'dashboard', component: 'DashboardComponent', data: {title: 'Dashboard'} },
+        { path: 'transactions', component: 'TransactionsComponent', data : {title: 'Transactions'} },
+        { path: 'transactions/:id', component: 'TransactionDetailComponent', data : {title: 'Transaction Detail'} },
         { path: '',
             redirectTo: '/dashboard',
             pathMatch: 'full'
-          },
+        },
         { path: '**', component: PageNotFoundComponent }
     ]
     @NgModule({

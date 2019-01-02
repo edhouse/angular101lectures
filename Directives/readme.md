@@ -62,9 +62,18 @@
     <div *ngSwitchDefault>Unknown</div>
 </div>
 ```
-## Custom attribute directive
 
+## @Directive decorator
 
+* Directive is a class marked by *@Directive* decorator
+* Most important is the *selector* property which triggers instantiation of a directive
+* `selector` may be declared as one of the following:
+  * `element-name`: select by element name
+  * `.class`: select by class name
+  * `[attribute]`: select by attribute name
+  * `[attribute=value]`: select by attribute name and value
+  * `:not(sub_selector)`: select only if the element does not match the `sub_selector`
+  * `selector1, selector2`: select if either `selector1` or `selector2` matches
 
 ## References
 * [Attribute directives](https://angular.io/guide/attribute-directives)

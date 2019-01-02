@@ -133,6 +133,16 @@ dist
 └─ vendor.330bdb50b9e3457f8646.bundle.js
 ```
 
+## Production build
+
+- Ahead-of-Time (AOT) Compilation – pre-compiles templates
+- Enables production mode – turns off assertions and other checks within the framework
+- Bundling – concatenates all files into few bundles
+- Minification – removes whitespaces, comments, ...
+- Uglification – rewrites code to short and cryptic variable and function names
+- Dead code elimination (tree shaking) – removes unreferenced code
+- Feature modules and lazy loading
+
 ## Creating new project
 
 - By hand
@@ -178,6 +188,7 @@ dist
 
 ## IDEs
 
+- Amexio Canvas Web Based Drag and Drop IDE by MetaMagic
 - Angular IDE by Webclipse
 - IntelliJ IDEA
 - Visual Studio Code

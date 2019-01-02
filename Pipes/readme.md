@@ -1,7 +1,7 @@
 # Angular - Pipes
 - Feature which provides various transformers for output, it does not modify binded values
 - Data Transformer usable in templates, interpolation expression and also in code
-- Character of “I” is used in template to involve data transformation
+- Character of `|` is used in template to involve data transformation
 - Multiple “pipes” can by used at once in similar fashion as concatenation of commands in Unix like systems
 ## Showcase of basic usage with JSON pipe
 
@@ -46,7 +46,7 @@ Concatenation of multiple pipes (depends on order):
 |async| waits until promise is completed and than shows data |      |                |
 
 ## Custom Pipes
-- Custom pipe can be created as implementation of PipeTransform interface
+- Custom pipe can be created as class marked by *@Pipe* decorator which implements PipeTransform interface
 - Must be declared in Module in declarations array
 
 ```typescript
@@ -67,7 +67,7 @@ Usage:
     <!-- Yes -->
 ```
 ## Pure pipes
-* By default pipes does not watch for changes in underlying data (async is exception)
+* By default pipes do not watch for changes in underlying data (async is exception)
 * This behavior can be overridden in via `@Pipe` decorator argument `pure`, however could lead to performance issues
 
 ## References:
