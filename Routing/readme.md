@@ -1,8 +1,9 @@
 # Angular Routing & Navigation
 * Angular Router provides navigation functionality between views.
 * Angular Router is optional service so it is not part of the Angular core and can be found in package `@angular/router`.
-* Router service expects that index.html has set base path ```<base href="/">```
-* Routes are configured inside of app.module.ts like this
+* Implementation is extremely robust, there is book just about Angular Router
+* Router service expects that `index.html` has set base path ```<base href="/">```
+* Routes are configured inside of `app.module.ts` like this
 ```typescript
    //imports omitted
     const ROUTES: Routes = [
@@ -49,7 +50,54 @@ transaction
   ...
 ```
 * Attribute directive `routerLinkActive` adds active CSS class to activated view in navigation
+* Be aware that without slash link is consider to be relative, with slash absolute
+* RouterLink can be configured via attribute directive `routerLinkActiveOptions`
+* Router can be also used programmatically via injection of `Router` instance
+* Programmatically used router does not know about current location so for that we have to inject `ActivatedRoute` instance
 
+```typescript
+//imports and decorator is omitted
+export class DashboardComponent implements OnInit {
+
+  constructor(private router: Router, private route:ActivatedRoute) { }
+
+  ngOnInit() {}
+
+  open() {
+    this.router.navigate(['/dashboard'], {relativeTo: this.route});
+  }
+}
+```
+
+* To retrieve url parameters we have to also inject `ActivatedRoute` instance
+
+```typescript
+export class TransactionComponent implements OnInit, OnDestroy {
+  transactionId: number;
+  paramsSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    // we want to retrieve params also when component instance is created
+    this.transactionId = this.route.snapshot.params['id'];
+
+    // we want to subscribe to changes in url
+    this.paramsSubscription = this.route.params.subscribe(
+      (params: Params) => {
+        this.transactionId = params['id'];
+      }
+    );
+  }
+
+
+  ngOnDestroy(): void {
+    // unsubscribe when component is destroyed
+    this.paramsSubscription.unsubscribe();
+  }
+}
+```
 
 ## Router Events
 Router Event |	Description |
@@ -64,7 +112,7 @@ NavigationError	|An event triggered when navigation fails due to an unexpected e
 
 ## Routing Module
 * For more advanced use cases and bigger apps its better to create own routing module. 
-* Separation make it cleaner for advanced configuration and it does not pollute app module. 
+* Separation makes it cleaner for advanced configuration and it does not pollute app module. 
 
 ```typescript
 //imports omitted
@@ -104,6 +152,25 @@ export class RoutingModule {
 }
 
 ```
+
+## Nested routes
+* Angular Router supports also nested routes
+```typescript
+// ...
+const ROUTES: Routes = [
+  {
+    path: 'payment', component: PaymentComponent, data: {
+    title: 'Payment'
+  }, children: [
+    {path: '', redirectTo: 'step1', pathMatch: 'full'},
+    {path: 'create', component: 'PaymentCreateComponent'},
+    {path: 'summary', component: 'PaymentSummaryComponent'},
+    {path: 'authorize', component: 'PaymentSummaryComponent'}
+  ]
+  }
+];
+```
+* For children routes we have to add another `<router-outlet></router-outlet>` to `payment.component.html`
 
 ## Route Guards
 * Provides mechanism to restrict access to routes
@@ -146,3 +213,6 @@ export class LoggedInGuard implements CanActivate {
 }
 
 ````
+
+## References
+* [Angular Router](https://angular.io/guide/router)
