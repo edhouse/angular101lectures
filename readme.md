@@ -42,10 +42,11 @@
 
 1. Project Setup
 2. Components
-3. Data Binding and Events
-4. Forms
-5. Directives
-6. Pipes
-7. Services and Service Providers
-8. Modules
-9. Routing
+3. Data Binding
+4. Events
+5. Forms
+6. Directives
+7. Pipes
+8. Services and Service Providers
+9. Modules
+10. Routing
