@@ -6,8 +6,8 @@
 
 ## Prerequisites
 
-- Install Node.js: https://nodejs.org/ (LTS/Current does not matter for workshop)
-  - Or make sure your Node.js version is at least 8.x (e.g. by `node -v` command)
+- Install Node.js: https://nodejs.org/ (version 8.x or 10.x)
+  - Or make sure your Node.js version is 8.x or 10.x (e.g. by `node -v` command)
     and npm is at least 5.x (e.g. by `npm -v` command).
     For Node.js update just download and install new version,for npm update
     follow instruction on https://docs.npmjs.com/try-the-latest-stable-version-of-npm
@@ -17,9 +17,11 @@
     - Angular Files (by Alexander Ivanichev)
     - Angular v7 Snippets (by John Papa)
     - TSLint (by egamma)
-- Install Git (optional): https://git-scm.com/ (Angular can initialize project)
-- In any shell or command-line interpreter (e.g. cmd.exe) run: `npm install --global @angular/cli`
+- Install Git (optional but recommended): https://git-scm.com/ (Angular can perform initial commit when Git is installed)
+- Install Angular CLI: in any shell or command-line interpreter (e.g. cmd.exe) run: `npm install --global @angular/cli`
   - In older versions of windows use quotes: `npm install --global "@angular/cli"`
+  - Or make sure your Angular CLI version is at least 7.1.x (e.g. by `ng v` command).
+    For update run: `npm update --global @angular/cli`.
 
 ## Angular framework
 
