@@ -23,22 +23,9 @@
   - Or make sure your Angular CLI version is at least 7.1.x (e.g. by `ng v` command).
     For update run: `npm update --global @angular/cli`.
 
-## Angular framework
+## Quick introduction
 
-- Angular != AngularJS
-- JavaScript platform for web applications
-- It provides robust capabilities
-  - Also support server side rendering
-- It is written in Typescript
-- Large community of developers
-- Rapid development cycle
-  - Minor releases should not break API
-- Developed by Google
-  - Trustworthy for enterprise
-
-## Architecture Overview
-
-![architecture-overview](architecture-overview.png)
+Quick introduction contains basic information about all topics which are more deeply described in individual lectures.
 
 ## Lectures
 
@@ -52,3 +39,11 @@
 8. Services and Service Providers
 9. Modules
 10. Routing
+
+## Demo application
+
+Demo application which demonstrates basic usage of Angular building blocks and best practises can be found on https://github.com/edhouse.
+
+## Contact
+
+Created by Edhouse: https://www.edhouse.cz/.

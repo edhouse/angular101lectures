@@ -1,0 +1,236 @@
+# Angular - Quick Introduciton
+
+## Angular framework
+
+- Angular != AngularJS
+- JavaScript platform for web applications
+- It provides robust capabilities
+  - Also support server side rendering
+- It is written in Typescript
+- Large community of developers
+- Rapid development cycle
+  - Minor releases should not break API
+- Developed by Google
+  - Trustworthy for enterprise
+
+## Project Setup
+
+- Prerequisites
+  - Node.js
+  - NPM
+- Angular CLI
+  - `ng` command does all the work
+  - Follows best practices
+  - Recommended tool for project bootstrap
+
+### Project structure
+
+#### The root folder
+
+```
+[app]
+├─ dist/...
+├─ e2e
+│  ├─ app.e2e-spec.ts
+│  ├─ app.po.ts
+│  └─ tsconfig.e2e.json
+├─ node_modules/...
+├─ src/...
+├─ .angular-cli.json
+├─ .editorconfig
+├─ .gitignore
+├─ karma.conf.js
+├─ package.json
+├─ protractor.conf.js
+├─ README.md
+├─ tsconfig.json
+└─ tslint.json
+```
+
+#### The `src` folder
+
+```
+src
+├─ app
+│  ├─ app.component.css
+│  ├─ app.component.html
+│  ├─ app.component.spec.ts
+│  ├─ app.component.ts
+│  └─ app.module.ts
+├─ assets
+│  └─ .gitkeep
+├─ environments
+│  ├─ environment.prod.ts
+│  └─ environment.ts
+├─ favicon.ico
+├─ index.html
+├─ main.ts
+├─ polyfills.ts
+├─ styles.css
+├─ test.ts
+├─ tsconfig.app.json
+└─ tsconfig.spec.json
+```
+
+#### Folder details
+
+- `dist` - compiled js files for distribution
+- `e2e` - end 2 end tests (web driver - selenium)
+- `node-modules` - dev version of third party dependencies
+- `src` - application source code
+- `src/app` - main application module
+
+### Basic ng commands
+
+- `ng help`
+- `ng lint`
+- `ng serve`
+- `ng test`
+- `ng doc`
+- `ng generate`
+- `ng update`
+
+## Building Blocks
+
+### Architecture Overview
+
+![architecture-overview](architecture-overview.png)
+
+### Modules
+
+- Module describes how application parts fit together
+- Angular apps are modular and Angular has its own modularity system called NgModules.
+- Angular module is a class marked by `@NgModule` decorator
+- Help organize apps into blocks of functionality
+- Module identifies components, directives, pipes and services
+- Every Angular app has root module
+- Angular app can have more feature modules
+
+#### Module definition
+
+- `@NgModule` is a decorator function that takes a single metadata object whose properties describe the module
+- Most important properties of module:
+  - `declarations` - the view classes. 
+  - `exports` - the subset of declarations that should be visible to other modules.
+  - `imports` - classes imported from other modules.
+  - `providers` - creators of services that this module contributes to the global collection of services
+  - `bootstrap` - the main application view, called the root component, that hosts all other app views (only for root module)
+
+### Components
+
+- Web Components - suite of different technologies allowing you to create reusable custom user interface components
+  (with their functionality encapsulated away from the rest of your code) and utilize them in your web apps
+- Angular component is a set of files which controls a patch of screen called a view
+- Component is marked by `@Component` decorator
+- Component is usually defined by
+  - HTML template (with Angularized markup)
+  - CSS file
+  - spec file
+  - ts file - controller implementation
+  - Use `ng g c <name>` command to create new components
+- Component lifecycle
+  - `ngOnInit`
+
+### Data Binding
+
+- Expressions used to create dynamic content in HTML
+- Essential part of Angular framework
+- As attribute of HTML elements or special sequence of characters `{{}}`
+- One-way -> data flows in one direction
+- Two-way -> data flows in both directions
+- Binding to DOM event works as one-way data binding
+
+#### Brackets in binding
+
+Syntax | Description
+--- | ---
+`[target]="expression"` | one-way data biding from expression to target
+`{{expression}}` | string interpolation
+`(target)="expression"` | one-way binding from target to destination of expression (e.g. events)
+`[(target)]="expression"` | two-way binding (banana in the box)
+
+### Directives
+
+- Directives are instructions for DOM manipulation
+- Directive is a class with a `@Directive` decorator
+- Three kinds of directives in Angular
+  - Components - directive with template
+  - Attribute - change the appearance or behaviour of an element, component, or another directive
+  - Structural (marked with `*`) - change the DOM layout by adding and removing DOM elements
+    - `NgIf`
+    - `NgSwitch`
+    - `NgFor`
+  - Custom directive can be generated `by ng g d`
+
+### Pipes
+
+- Feature which provides various transformers for output, it does not modify binded values
+- Pipe is a class with `@Pipe` decorator which implements `transform` method (`PipeTransform` interface)
+- Data Transformer usable in templates, interpolation expression and also in code
+- Character of `|` is used in template to involve data transformation
+- Multiple pipes can by used at once in similar fashion as concatenation of commands in Unix like systems
+- Custom pipe can by generated by `ng c p`
+
+### Services and Dependency Injection
+
+- Service can by any value, function or feature, typically a class
+- There is nothing special in Angular about services
+- Angular ships with its own DI framework as standalone module
+- Injector is main mechanism for resolving dependencies
+- Services are registered in NgModule providers
+- Provider is a recipe for creating service
+- `@Injectable()` - marks a class available to an injector
+  - Recommended to always add `@Injectable()` to services
+  - Supertype of `@Component()`, `@Directive()` and `@Pipe()`
+
+### Routing & Navigation
+
+- Angular Router provides navigation functionality between views.
+- Angular Router is optional service so it is not part of the Angular core and can be found in package `@angular/router`.
+- Router service expects that index.html has set base path `<base href="/">`
+- Routes are usually defined as module
+- Route Guards
+
+## Production build
+
+- Disabled by default
+- Resources are optimized for production
+- The `dist` folder - development build
+```
+dist
+├─ favicon.ico
+├─ index.html
+├─ inline.bundle.js
+├─ main.bundle.js
+├─ polyfills.bundle.js
+├─ styles.bundle.js
+└─ vendor.bundle.js
+```
+- The `dist` folder - production build
+```
+dist
+├─ 3rdpartylicenses.txt
+├─ favicon.ico
+├─ index.html
+├─ inline.8282eb7a62033b4bece0.bundle.js
+├─ main.c3c3a5643c8398e4ac5c.bundle.js
+├─ polyfills.b8858ddd6c4bd49f3fdf.bundle.js
+├─ styles.d41d8cd98f00b204e980.bundle.css
+└─ vendor.330bdb50b9e3457f8646.bundle.js
+```
+
+### Production build optimizations
+
+- Ahead-of-Time (AOT) Compilation - pre-compiles templates
+- Enables production mode - turns off assertions and other checks within the framework
+- Bundling - concatenates all files into few bundles
+- Minification - removes whitespaces, comments, ...
+- Uglification - rewrites code to short and cryptic variable and function names
+- Dead code elimination (tree shaking) - removes unreferenced code
+- Feature modules and lazy loading
+
+## References
+
+- https://angular.io/docs
+- https://gitlab.in.edhouse.cz/angular_edison/lectures/
+- https://books.ninja-squad.com/angular

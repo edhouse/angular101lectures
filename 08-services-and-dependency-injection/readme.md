@@ -30,7 +30,7 @@ export class Logger {
   - Injector can create service from *provider*
 - *Provider* is a recipe for creating service
 
-![js-ecosystem](angular-di.svg)
+![js-ecosystem](angular-di.png)
 
 ### Using DI
 
@@ -263,7 +263,7 @@ export const carFactory = (engine: Engine) => {
 - Injector bubbling - from self to parent until found or error
 - Re-providing services - first provider encountered wins
 
-![js-ecosystem](injector-tree.svg)
+![js-ecosystem](injector-tree.png)
 
 ### Limit service scope (isolation)
 
@@ -279,7 +279,7 @@ export const carFactory = (engine: Engine) => {
 
 ### Specialized providers
 
-![js-ecosystem](nested-components.svg)
+![js-ecosystem](nested-components.png)
 
 ComponentA providers: `[CarService, EngineService, TiresService]`
 ComponentB providers: `[CarService2, EngineService2]`
@@ -287,7 +287,7 @@ ComponentC providers: `[CarService3]`
 
 Resolved dependencies of ComponentC:
 
-![js-ecosystem](specialized-services.svg)
+![js-ecosystem](specialized-services.png)
 
 ## Qualifying dependency lookup
 

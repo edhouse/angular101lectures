@@ -1,6 +1,6 @@
 # Angular - Project Setup
 
-![js-ecosystem](js-ecosystem.svg)
+![js-ecosystem](js-ecosystem.png)
 
 ## Prerequisites
 
