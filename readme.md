@@ -42,7 +42,7 @@ Quick introduction contains basic information about all topics which are more de
 
 ## Demo application
 
-Demo application which demonstrates basic usage of Angular building blocks and best practises can be found on https://github.com/edhouse.
+Demo application which demonstrates basic usage of Angular building blocks and best practises can be found on https://github.com/edhouse/angular101demo.
 
 ## Contact
 
